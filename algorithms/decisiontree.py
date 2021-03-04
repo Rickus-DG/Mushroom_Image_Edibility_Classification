@@ -201,17 +201,19 @@ class RandomForestClassifier:
         self.num_trees = num_trees
 
         self.trees = list()
-        for i in range(self.num_trees):
-            sample = self.__rand_sub_set(self.train_data, ratio)
+
+        for i in np.arange(self.num_trees):
+            sample = self.__rand_sub_set(self.train_data, ratio, seed=i)
             tree = TreeClassifier(classes=self.classes)
             tree.fit_train_data(sample, tree_height=self.tree_height,
                                 length_stopping_criterion=self.length_stopping_criterion)
             self.trees.append(tree)
 
-    def __rand_sub_set(self, train_data, ratio):
+    def __rand_sub_set(self, train_data, ratio, seed=0):
         """Returns random subset of the train_data of size determined by ratio allowing multiples of the same sample"""
 
         num_samples = int(np.around(train_data.shape[0] * ratio))
+        np.random.seed(seed)
         random_indices = np.random.choice(train_data.shape[0], size=num_samples, replace=True)
         random_rows = train_data[random_indices, :]
         return random_rows

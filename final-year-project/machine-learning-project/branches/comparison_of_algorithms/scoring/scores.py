@@ -77,7 +77,7 @@ class confusion_matrix:
             if y_test[i] == 1 and y_pred[i] == 0:
                 self.falseNegatives += 1
 
-        return np.array([[self.truePositives, self.falsePositives], [self.falseNegatives, self.trueNegatives,]])
+        return np.array([[self.truePositives, self.falsePositives], [self.falseNegatives, self.trueNegatives]])
 
     def sensitivity(self):
         """Get sensitivity score"""
@@ -97,6 +97,11 @@ class confusion_matrix:
     def recall(self):
         """Get recall score"""
 
-        return self.truePositives/(self.truePositives + self.falsePositives)
+        return self.truePositives/(self.truePositives + self.falseNegatives)
+
+    def accuracy(self):
+        """Get accuracy score"""
+
+        return (self.truePositives + self.trueNegatives)/(self.truePositives + self.trueNegatives + self.falsePositives + self.falseNegatives)
 
 

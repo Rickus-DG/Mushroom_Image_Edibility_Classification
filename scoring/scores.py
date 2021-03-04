@@ -50,25 +50,53 @@ class cross_validation_score:
 
 class confusion_matrix:
 
+    def __init__(self):
+        self.truePositives = 0
+        self.falsePositives = 0
+        self.trueNegatives = 0
+        self.falseNegatives = 0
+
     def generate(self, y_pred, y_test):
         """Create confusion matrix"""
 
-        truePositives = 0
-        falsePositives = 0
-        trueNegatives = 0
-        falseNegatives = 0
+        self.truePositives = 0
+        self.falsePositives = 0
+        self.trueNegatives = 0
+        self.falseNegatives = 0
 
         for i in np.arange(y_test.shape[0]):
-            if y_test[i] == 1 and  y_pred[i] == 1:
-                truePositives += 1
+            if y_test[i] == 1 and y_pred[i] == 1:
+                self.truePositives += 1
 
             if y_test[i] == 0 and y_pred[i] == 1:
-                falsePositives += 1
+                self.falsePositives += 1
 
-            if y_test[i] == 0 and  y_pred[i] == 0:
-                trueNegatives += 1
+            if y_test[i] == 0 and y_pred[i] == 0:
+                self.trueNegatives += 1
 
             if y_test[i] == 1 and y_pred[i] == 0:
-                falseNegatives += 1
+                self.falseNegatives += 1
 
-        return np.array([[truePositives, falsePositives], [falseNegatives, trueNegatives,]])
+        return np.array([[self.truePositives, self.falsePositives], [self.falseNegatives, self.trueNegatives,]])
+
+    def sensitivity(self):
+        """Get sensitivity score"""
+
+        return self.truePositives/(self.truePositives + self.falseNegatives)
+
+    def specificity(self):
+        """Get specificity score"""
+
+        return self.trueNegatives/(self.trueNegatives + self.falsePositives)
+
+    def precision(self):
+        """Get precision score"""
+
+        return self.truePositives/(self.truePositives + self.falsePositives)
+
+    def recall(self):
+        """Get recall score"""
+
+        return self.truePositives/(self.truePositives + self.falsePositives)
+
+

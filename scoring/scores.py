@@ -94,11 +94,6 @@ class confusion_matrix:
 
         return self.truePositives/(self.truePositives + self.falsePositives)
 
-    def recall(self):
-        """Get recall score"""
-
-        return self.truePositives/(self.truePositives + self.falseNegatives)
-
     def accuracy(self):
         """Get accuracy score"""
 

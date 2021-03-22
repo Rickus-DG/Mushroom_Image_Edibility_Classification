@@ -38,7 +38,6 @@ class SVC:
         self.b = 0
 
         for i in np.arange(self.n_iters):
-
             for j in np.arange(X_train.shape[0]):
                 sample = X_train[j]
                 if y_train[j] * (self.dot(sample, self.w) - self.b) >= 1:
